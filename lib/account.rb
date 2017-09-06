@@ -1,3 +1,5 @@
+require_relative 'insufficient_funds_error'
+
 module Bank
   class Account
     attr_reader :id, :balance
@@ -16,8 +18,8 @@ module Bank
       end
 
       if @balance - amount < 0
-        puts "Cannot withdraw; balance would go negative"
-        return @balance
+        raise InsufficientFundsError.new("Cannot withdraw; balance would go negative.")
+        #return @balance
       end
 
       @balance -= amount
